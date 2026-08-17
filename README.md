@@ -1,6 +1,25 @@
-# ScreenShot — Full Page Capture
+<p align="center">
+  <img src="store-assets/logo.png" width="120" height="120" alt="ScreenShot Logo">
+</p>
 
-> A simple, free, open-source full-page screenshot extension for Chrome and Microsoft Edge. Built for developers and teams who need the actual rendered webpage—not an approximation of it.
+<h1 align="center">ScreenShot — Full Page Capture</h1>
+
+<p align="center">
+  <strong>Simple, free, open-source full-page screenshots for Chrome and Microsoft Edge.</strong><br>
+  Built for developers, designers, and AI workflows that need visual ground truth.
+</p>
+
+<p align="center">
+  <a href="https://github.com/developerasaad/screenshot-extension/releases/latest"><img src="https://img.shields.io/github/v/release/developerasaad/screenshot-extension?style=flat-square&color=blue" alt="Latest Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg?style=flat-square" alt="License: MIT"></a>
+  <a href="PRIVACY.md"><img src="https://img.shields.io/badge/privacy-100%25%20local-emerald.svg?style=flat-square" alt="Privacy: 100% Local"></a>
+  <a href="https://microsoftedge.microsoft.com/addons"><img src="https://img.shields.io/badge/Edge-Add--ons-blue.svg?style=flat-square&logo=microsoftedge&logoColor=white" alt="Edge Add-ons"></a>
+  <a href="https://chromewebstore.google.com"><img src="https://img.shields.io/badge/Chrome-Web%20Store-green.svg?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome Web Store"></a>
+</p>
+
+<p align="center">
+  <img src="store-assets/promo_large_1400x560.png" width="100%" alt="ScreenShot Overview Banner">
+</p>
 
 ---
 
@@ -33,6 +52,20 @@ When you encounter a layout issue, giving the AI model a screenshot provides **v
 - *"There is unexpected whitespace between the gallery and the footer."*
 
 A full-page screenshot gives the assistant the entire visual context of the rendered page, making visual debugging and UI iteration fast and reliable.
+
+---
+
+## Screenshots
+
+<p align="center">
+  <img src="store-assets/screenshot_1_full_page.png" width="48%" alt="One-Click Full-Page Capture">
+  <img src="store-assets/screenshot_2_viewer.png" width="48%" alt="Dedicated Minimal Viewer">
+</p>
+
+<p align="center">
+  <img src="store-assets/screenshot_3_nested_scroll.png" width="48%" alt="Nested Scroll Container Capture">
+  <img src="store-assets/screenshot_4_developer_ai.png" width="48%" alt="AI Coding & Development Workflow">
+</p>
 
 ---
 
@@ -148,7 +181,8 @@ See [PRIVACY.md](PRIVACY.md) for the complete privacy policy.
 │   ├── offscreen/        # Offscreen document for background clipboard writes
 │   ├── shared/           # Shared TypeScript interfaces, message types, and constants
 │   └── viewer/           # Minimal standalone viewer page (HTML/CSS/TS)
-├── scripts/              # Packaging and build automation scripts
+├── store-assets/         # Extension logos, promotional tiles, and screenshots
+├── scripts/              # Packaging and asset generation automation scripts
 ├── public/               # Static assets and manifest.json
 └── docs/                 # Architecture, FAQ, and troubleshooting guides
 ```
