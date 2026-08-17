@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="store-assets/logo.png" width="120" height="120" alt="ScreenShot Logo">
+  <img src="assets/logo.png" width="120" height="120" alt="ScreenShot Logo">
 </p>
 
 <h1 align="center">ScreenShot — Full Page Capture</h1>
@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="store-assets/promo_large_1400x560.png" width="100%" alt="ScreenShot Overview Banner">
+  <img src="assets/promo_large_1400x560.png" width="100%" alt="ScreenShot Overview Banner">
 </p>
 
 ---
@@ -58,13 +58,13 @@ A full-page screenshot gives the assistant the entire visual context of the rend
 ## Screenshots
 
 <p align="center">
-  <img src="store-assets/screenshot_1_full_page.png" width="48%" alt="One-Click Full-Page Capture">
-  <img src="store-assets/screenshot_2_viewer.png" width="48%" alt="Dedicated Minimal Viewer">
+  <img src="assets/screenshot_1_full_page.png" width="48%" alt="One-Click Full-Page Capture">
+  <img src="assets/screenshot_2_viewer.png" width="48%" alt="Dedicated Minimal Viewer">
 </p>
 
 <p align="center">
-  <img src="store-assets/screenshot_3_nested_scroll.png" width="48%" alt="Nested Scroll Container Capture">
-  <img src="store-assets/screenshot_4_developer_ai.png" width="48%" alt="AI Coding & Development Workflow">
+  <img src="assets/screenshot_3_nested_scroll.png" width="48%" alt="Nested Scroll Container Capture">
+  <img src="assets/screenshot_4_developer_ai.png" width="48%" alt="AI Coding & Development Workflow">
 </p>
 
 ---
@@ -181,7 +181,7 @@ See [PRIVACY.md](PRIVACY.md) for the complete privacy policy.
 │   ├── offscreen/        # Offscreen document for background clipboard writes
 │   ├── shared/           # Shared TypeScript interfaces, message types, and constants
 │   └── viewer/           # Minimal standalone viewer page (HTML/CSS/TS)
-├── store-assets/         # Extension logos, promotional tiles, and screenshots
+├── assets/               # Extension logos, promotional tiles, and screenshots
 ├── scripts/              # Packaging and asset generation automation scripts
 ├── public/               # Static assets and manifest.json
 └── docs/                 # Architecture, FAQ, and troubleshooting guides

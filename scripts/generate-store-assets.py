@@ -1,9 +1,10 @@
 import os
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont
 
-SOURCE_LOGO = '/home/asaad/Downloads/image_1786975524667895.png'
-OUT_DIR = '/home/asaad/Desktop/ScreenShot/store-assets'
-ICONS_DIR = '/home/asaad/Desktop/ScreenShot/public/icons'
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT_DIR = os.path.join(ROOT_DIR, 'assets')
+ICONS_DIR = os.path.join(ROOT_DIR, 'public', 'icons')
+SOURCE_LOGO = os.path.join(OUT_DIR, 'logo.png')
 
 os.makedirs(OUT_DIR, exist_ok=True)
 os.makedirs(ICONS_DIR, exist_ok=True)
@@ -36,7 +37,7 @@ draw = ImageDraw.Draw(small_promo)
 # Draw subtle border
 draw.rectangle([0, 0, 439, 279], outline='#27272a', width=1)
 
-# Center logo icon (100x100)
+# Center logo icon (96x96)
 icon_small = logo_img.resize((96, 96), Image.Resampling.LANCZOS)
 small_promo.paste(icon_small, (172, 38), icon_small)
 
@@ -109,8 +110,7 @@ large_promo.save(os.path.join(OUT_DIR, 'promo_large_1400x560.png'))
 print('Generated promo_large_1400x560.png')
 
 # 4. Screenshots (1280 x 800)
-
-def create_store_screenshot(title, subtitle, badge_text, highlight_feature):
+def create_store_screenshot(title, subtitle, highlight_feature):
     img = Image.new('RGBA', (1280, 800), '#09090b')
     d = ImageDraw.Draw(img)
 
@@ -233,18 +233,18 @@ def create_store_screenshot(title, subtitle, badge_text, highlight_feature):
 
     return img
 
-s1 = create_store_screenshot('One-Click Full-Page Capture', 'Capture the entire webpage instantly without clutter or bloat.', 'Full Page', 'full_page')
+s1 = create_store_screenshot('One-Click Full-Page Capture', 'Capture the entire webpage instantly without clutter or bloat.', 'full_page')
 s1.save(os.path.join(OUT_DIR, 'screenshot_1_full_page.png'))
 print('Generated screenshot_1_full_page.png')
 
-s2 = create_store_screenshot('Minimal Dedicated Viewer', 'Inspect high-res captures with 1:1 zoom, dimension badge, and quick actions.', 'Viewer', 'viewer')
+s2 = create_store_screenshot('Minimal Dedicated Viewer', 'Inspect high-res captures with 1:1 zoom, dimension badge, and quick actions.', 'viewer')
 s2.save(os.path.join(OUT_DIR, 'screenshot_2_viewer.png'))
 print('Generated screenshot_2_viewer.png')
 
-s3 = create_store_screenshot('Nested Scroll-Container Support', 'Sidebars, filter panels, and tables are fully captured without scrollbar cutoffs.', 'Nested Scrollers', 'nested_scroll')
+s3 = create_store_screenshot('Nested Scroll-Container Support', 'Sidebars, filter panels, and tables are fully captured without scrollbar cutoffs.', 'nested_scroll')
 s3.save(os.path.join(OUT_DIR, 'screenshot_3_nested_scroll.png'))
 print('Generated screenshot_3_nested_scroll.png')
 
-s4 = create_store_screenshot('Built for Developers & AI Workflows', 'Copy raw PNG to clipboard for instant pasting into AI chats, Figma, or Slack.', 'Developer Ready', 'developer_ai')
+s4 = create_store_screenshot('Built for Developers & AI Workflows', 'Copy raw PNG to clipboard for instant pasting into AI chats, Figma, or Slack.', 'developer_ai')
 s4.save(os.path.join(OUT_DIR, 'screenshot_4_developer_ai.png'))
 print('Generated screenshot_4_developer_ai.png')
