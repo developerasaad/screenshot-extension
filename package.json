@@ -1,0 +1,20 @@
+{
+  "name": "screenshot-extension",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch --mode development & vite build --config vite.config.content.ts --watch --mode development",
+    "build": "vite build --mode production && vite build --config vite.config.content.ts --mode production",
+    "typecheck": "tsc --noEmit",
+    "package:chrome": "npm run build && node scripts/package.js chrome",
+    "package:edge": "npm run build && node scripts/package.js edge",
+    "package:all": "npm run build && node scripts/package.js chrome && node scripts/package.js edge"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "@types/node": "^20.14.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0"
+  }
+}

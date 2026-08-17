@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "ScreenShot — Full Page Capture",
+  "short_name": "ScreenShot",
+  "description": "Capture full-page screenshots instantly. View, save, or copy — no sign-in required.",
+  "version": "1.0.0",
+
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads",
+    "tabs",
+    "offscreen",
+    "clipboardWrite"
+  ],
+
+  "action": {
+    "default_title": "Capture Full-Page Screenshot",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+
+  "content_scripts": [],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "viewer/viewer.html",
+        "viewer/viewer.js",
+        "viewer/viewer.css",
+        "offscreen/offscreen.html",
+        "offscreen/offscreen.js",
+        "content/content-main.js",
+        "chunks/*.js",
+        "assets/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

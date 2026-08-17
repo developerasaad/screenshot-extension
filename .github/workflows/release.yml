@@ -1,0 +1,100 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & Publish Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout tagged commit
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck TypeScript
+        run: npm run typecheck
+
+      - name: Build extension
+        run: npm run build
+
+      - name: Validate build output
+        run: |
+          test -d dist || { echo "Error: dist directory does not exist."; exit 1; }
+          test -f dist/manifest.json || { echo "Error: dist/manifest.json does not exist."; exit 1; }
+          node -e "
+            const fs = require('fs');
+            const manifest = JSON.parse(fs.readFileSync('dist/manifest.json', 'utf8'));
+            if (!manifest.name || !manifest.version) throw new Error('Invalid manifest');
+            console.log('Building release for version tag: ' + process.env.GITHUB_REF_NAME + ' (Manifest v' + manifest.version + ')');
+          "
+
+      - name: Package extension archives
+        run: |
+          mkdir -p release
+          TAG_NAME="${GITHUB_REF_NAME}"
+          # Package Chromium ZIP (compatible with Chrome and Edge)
+          (cd dist && zip -r -9 "../release/extension-${TAG_NAME}-chromium.zip" ./*)
+          # Also create store-named ZIPs for convenience
+          cp "release/extension-${TAG_NAME}-chromium.zip" release/chrome-extension.zip
+          cp "release/extension-${TAG_NAME}-chromium.zip" release/edge-extension.zip
+
+      - name: Verify package archives
+        run: |
+          TAG_NAME="${GITHUB_REF_NAME}"
+          ZIP_FILE="release/extension-${TAG_NAME}-chromium.zip"
+          test -f "$ZIP_FILE" || { echo "Error: $ZIP_FILE does not exist."; exit 1; }
+          # Verify manifest exists at root of ZIP
+          unzip -l "$ZIP_FILE" | grep -q "manifest.json" || { echo "Error: manifest.json missing from root of ZIP."; exit 1; }
+          # Verify forbidden development files are not in ZIP
+          ! unzip -l "$ZIP_FILE" | grep -E "(node_modules|\.git|\.pem|\.key|test-pages)" || { echo "Error: forbidden files found in ZIP."; exit 1; }
+          echo "Package verification successful!"
+          ls -lh release/
+
+      - name: Generate SHA256 Checksums
+        run: |
+          cd release
+          sha256sum *.zip > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release/*.zip
+            release/SHA256SUMS
+          name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            ## ScreenShot — Full Page Capture ${{ github.ref_name }}
+
+            ### Installation
+            1. Download `extension-${{ github.ref_name }}-chromium.zip` (or `chrome-extension.zip` / `edge-extension.zip`).
+            2. Extract the ZIP archive into a folder.
+            3. Open `chrome://extensions` (Chrome) or `edge://extensions` (Edge).
+            4. Enable **Developer mode** and click **Load unpacked**.
+            5. Select the extracted folder.
+
+            ### Browser Packages
+            - **`extension-${{ github.ref_name }}-chromium.zip`**: Standard Manifest V3 package compatible with Google Chrome, Microsoft Edge, Brave, Opera, and Vivaldi.
+            - **`chrome-extension.zip`**: Pre-named package for Chrome Web Store manual upload.
+            - **`edge-extension.zip`**: Pre-named package for Microsoft Edge Add-ons manual upload.
+
+            ### Integrity & Verification
+            Verify the SHA-256 checksum of your downloaded artifact against `SHA256SUMS`.

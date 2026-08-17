@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenshot — Full Page Capture</title>
+  <meta name="description" content="View, save, or copy your captured full-page screenshot">
+  <link rel="stylesheet" href="./viewer.css">
+</head>
+<body>
+  <!-- Fixed Top Minimal Toolbar -->
+  <header id="viewer-header" class="viewer-header hidden">
+    <div class="header-left">
+      <span class="header-title">Full-Page Screenshot</span>
+      <span id="dimension-badge" class="dimension-badge"></span>
+    </div>
+    <div class="header-actions">
+      <button id="btn-zoom" class="toolbar-btn" aria-label="Toggle zoom scale">
+        <svg class="btn-icon icon-zoom-in" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="7" cy="7" r="5"></circle>
+          <line x1="10.5" y1="10.5" x2="14.5" y2="14.5"></line>
+          <line x1="7" y1="4.5" x2="7" y2="9.5"></line>
+          <line x1="4.5" y1="7" x2="9.5" y2="7"></line>
+        </svg>
+        <span id="zoom-label">Actual Size</span>
+      </button>
+
+      <button id="btn-copy" class="toolbar-btn" aria-label="Copy screenshot to clipboard">
+        <svg class="btn-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5.5" y="5.5" width="8" height="8" rx="1.5"></rect>
+          <path d="M3.5 10.5H3a1.5 1.5 0 0 1-1.5-1.5V3A1.5 1.5 0 0 1 3 1.5h6A1.5 1.5 0 0 1 10.5 3v.5"></path>
+        </svg>
+        <span id="copy-label">Copy</span>
+      </button>
+
+      <button id="btn-save" class="toolbar-btn btn-primary" aria-label="Save screenshot as PNG">
+        <svg class="btn-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 2v8m-3.5-3.5L8 10l3.5-3.5M2 13.5h12"></path>
+        </svg>
+        <span id="save-label">Save PNG</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main View Area -->
+  <main id="viewer-container">
+    <div id="loading-state" class="state-container" aria-live="polite">
+      <div class="spinner" role="status" aria-label="Loading screenshot"></div>
+      <p class="state-text">Loading screenshot…</p>
+    </div>
+
+    <div id="error-state" class="state-container hidden" aria-live="assertive">
+      <div class="error-icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="8" cy="8" r="7"></circle>
+          <line x1="8" y1="4.5" x2="8" y2="8.5"></line>
+          <line x1="8" y1="11.5" x2="8" y2="12"></line>
+        </svg>
+      </div>
+      <p class="state-text" id="error-message">Could not load screenshot.</p>
+    </div>
+
+    <div id="image-container" class="image-wrapper hidden">
+      <img
+        id="screenshot-image"
+        alt="Full-page screenshot"
+        draggable="false"
+      />
+    </div>
+  </main>
+
+  <script type="module" src="./viewer.ts"></script>
+</body>
+</html>
