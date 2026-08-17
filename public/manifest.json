@@ -36,8 +36,6 @@
     "type": "module"
   },
 
-  "content_scripts": [],
-
   "web_accessible_resources": [
     {
       "resources": [
