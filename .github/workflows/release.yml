@@ -76,9 +76,33 @@ jobs:
         run: |
           TAG_NAME="${GITHUB_REF_NAME}"
           echo "Publishing GitHub release for ${TAG_NAME}..."
-          gh release delete "${TAG_NAME}" --yes || true
-          gh release create "${TAG_NAME}" \
-            release/*.zip \
-            release/SHA256SUMS \
-            --title "ScreenShot — Full Page Capture ${TAG_NAME}" \
-            --generate-notes
+          
+          # Retry loop with backoff for transient GitHub API errors (e.g. 503)
+          success=0
+          for i in 1 2 3 4 5; do
+            echo "Attempt $i: publishing release assets for ${TAG_NAME}..."
+            if gh release create "${TAG_NAME}" \
+              release/*.zip \
+              release/SHA256SUMS \
+              --title "ScreenShot — Full Page Capture ${TAG_NAME}" \
+              --generate-notes \
+              --clobber; then
+              success=1
+              echo "Release published successfully!"
+              break
+            elif gh release upload "${TAG_NAME}" \
+              release/*.zip \
+              release/SHA256SUMS \
+              --clobber; then
+              success=1
+              echo "Release assets uploaded successfully!"
+              break
+            fi
+            echo "Attempt $i encountered a temporary API issue. Waiting 5s before retrying..."
+            sleep 5
+          done
+
+          if [ $success -ne 1 ]; then
+            echo "Failed to publish release after multiple attempts."
+            exit 1
+          fi
