@@ -215,6 +215,7 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for de
 
 ## Documentation
 
+- [Engineering Log: Bug Fixes & Architecture Retrospective](docs/BUG_FIXES_AND_ENGINEERING_LOG.md)
 - [Architecture & Capture Engine Deep-Dive](docs/ARCHITECTURE.md)
 - [Frequently Asked Questions](docs/FAQ.md)
 - [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
